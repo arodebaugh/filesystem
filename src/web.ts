@@ -21,6 +21,8 @@ import type {
   WriteFileOptions,
   WriteFileResult,
   Directory,
+  SyncOptions,
+  SyncResult,
 } from './definitions';
 import { Encoding } from './definitions';
 
@@ -55,6 +57,9 @@ function isPathParent(parent: string, children: string): boolean {
 }
 
 export class FilesystemWeb extends WebPlugin implements FilesystemPlugin {
+  syncToDrive(options: SyncOptions): Promise<SyncResult> {
+    throw new Error('Method not implemented.' + options);
+  }
   DB_VERSION = 1;
   DB_NAME = 'Disc';
 
