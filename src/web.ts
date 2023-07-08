@@ -20,12 +20,11 @@ import type {
   StatResult,
   WriteFileOptions,
   WriteFileResult,
-  Directory,
   SyncOptions,
   SyncResult,
 } from './definitions';
 
-export declare enum Encoding {
+enum Encoding {
   /**
    * Eight-bit UCS Transformation Format
    *
@@ -48,6 +47,72 @@ export declare enum Encoding {
    * @since 1.0.0
    */
   UTF16 = "utf16"
+}
+
+enum Directory {
+  /**
+   * The Documents directory
+   * On iOS it's the app's documents directory.
+   * Use this directory to store user-generated content.
+   * On Android it's the Public Documents folder, so it's accessible from other apps.
+   * It's not accesible on Android 10 unless the app enables legacy External Storage
+   * by adding `android:requestLegacyExternalStorage="true"` in the `application` tag
+   * in the `AndroidManifest.xml`.
+   * It's not accesible on Android 11 or newer.
+   *
+   * @since 1.0.0
+   */
+  Documents = "DOCUMENTS",
+  /**
+   * The Data directory
+   * On iOS it will use the Documents directory.
+   * On Android it's the directory holding application files.
+   * Files will be deleted when the application is uninstalled.
+   *
+   * @since 1.0.0
+   */
+  Data = "DATA",
+  /**
+   * The Library directory
+   * On iOS it will use the Library directory.
+   * On Android it's the directory holding application files.
+   * Files will be deleted when the application is uninstalled.
+   *
+   * @since 1.1.0
+   */
+  Library = "LIBRARY",
+  /**
+   * The Cache directory
+   * Can be deleted in cases of low memory, so use this directory to write app-specific files
+   * that your app can re-create easily.
+   *
+   * @since 1.0.0
+   */
+  Cache = "CACHE",
+  /**
+   * The external directory
+   * On iOS it will use the Documents directory
+   * On Android it's the directory on the primary shared/external
+   * storage device where the application can place persistent files it owns.
+   * These files are internal to the applications, and not typically visible
+   * to the user as media.
+   * Files will be deleted when the application is uninstalled.
+   *
+   * @since 1.0.0
+   */
+  External = "EXTERNAL",
+  /**
+   * The external storage directory
+   * On iOS it will use the Documents directory
+   * On Android it's the primary shared/external storage directory.
+   * It's not accesible on Android 10 unless the app enables legacy External Storage
+   * by adding `android:requestLegacyExternalStorage="true"` in the `application` tag
+   * in the `AndroidManifest.xml`.
+   * It's not accesible on Android 11 or newer.
+   *
+   * @since 1.0.0
+   */
+  ExternalStorage = "EXTERNAL_STORAGE"
 }
 
 function resolve(path: string): string {
