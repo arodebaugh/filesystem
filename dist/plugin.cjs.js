@@ -1,4 +1,13 @@
-import { WebPlugin } from '@capacitor/core';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var core = require('@capacitor/core');
+
+const Filesystem = core.registerPlugin('Filesystem', {
+    web: () => Promise.resolve().then(function () { return web; }).then(m => new m.FilesystemWeb()),
+});
+
 function resolve(path) {
     const posix = path.split('/').filter(item => item !== '.');
     const newPosix = [];
@@ -22,7 +31,7 @@ function isPathParent(parent, children) {
     return (parent !== children &&
         pathsA.every((value, index) => value === pathsB[index]));
 }
-export class FilesystemWeb extends WebPlugin {
+class FilesystemWeb extends core.WebPlugin {
     constructor() {
         super(...arguments);
         this.DB_VERSION = 1;
@@ -540,4 +549,11 @@ export class FilesystemWeb extends WebPlugin {
     }
 }
 FilesystemWeb._debug = true;
-//# sourceMappingURL=web.js.map
+
+var web = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    FilesystemWeb: FilesystemWeb
+});
+
+exports.Filesystem = Filesystem;
+//# sourceMappingURL=plugin.cjs.js.map

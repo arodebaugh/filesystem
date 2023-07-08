@@ -24,7 +24,31 @@ import type {
   SyncOptions,
   SyncResult,
 } from './definitions';
-import { Encoding } from './definitions';
+
+export declare enum Encoding {
+  /**
+   * Eight-bit UCS Transformation Format
+   *
+   * @since 1.0.0
+   */
+  UTF8 = "utf8",
+  /**
+   * Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the
+   * Unicode character set
+   * This encoding is only supported on Android.
+   *
+   * @since 1.0.0
+   */
+  ASCII = "ascii",
+  /**
+   * Sixteen-bit UCS Transformation Format, byte order identified by an
+   * optional byte-order mark
+   * This encoding is only supported on Android.
+   *
+   * @since 1.0.0
+   */
+  UTF16 = "utf16"
+}
 
 function resolve(path: string): string {
   const posix = path.split('/').filter(item => item !== '.');

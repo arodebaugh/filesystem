@@ -14,7 +14,29 @@ public class FilesystemPlugin: CAPPlugin {
      */
     @objc func syncToDrive(_ call: CAPPluginCall) {
         do {
-            implementation.syncToDrive()
+            let fileManager = FileManager.default
+            let localDocumentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let localFolderURL = localDocumentsURL.appendingPathComponent("Mirror-app")
+            let iCloudDocumentsURL = fileManager.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+            let iCloudFolderURL = iCloudDocumentsURL?.appendingPathComponent("Mirror-app")
+
+            if fileManager.fileExists(atPath: localFolderURL.path) {
+                do {
+                    let fileURLs = try fileManager.contentsOfDirectory(at: localFolderURL, includingPropertiesForKeys: nil)
+                    for fileURL in fileURLs {
+                        let destinationURL = iCloudFolderURL?.appendingPathComponent(fileURL.lastPathComponent)
+                        if fileManager.fileExists(atPath: destinationURL!.path) {
+                            try fileManager.removeItem(at: destinationURL!)
+                        }
+                        try fileManager.setUbiquitous(true, itemAt: fileURL, destinationURL: destinationURL!)
+                    }
+                    call.resolve()
+                } catch {
+                    handleError(call, "Error while moving files: \(error.localizedDescription)")
+                }
+            } else {
+                handleError(call, "The Mirror-app folder does not exist in the local Documents directory.")
+            }
         } catch let error as NSError {
             handleError(call, error.localizedDescription, error)
         }
