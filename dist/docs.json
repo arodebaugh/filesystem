@@ -750,7 +750,7 @@
           ],
           "docs": "Type of the file.",
           "complexTypes": [],
-          "type": "'directory' | 'file'"
+          "type": "'file' | 'directory'"
         },
         {
           "name": "size",
@@ -910,7 +910,7 @@
           ],
           "docs": "Type of the file.",
           "complexTypes": [],
-          "type": "'directory' | 'file'"
+          "type": "'file' | 'directory'"
         },
         {
           "name": "size",
